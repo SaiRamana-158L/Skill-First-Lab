@@ -1,0 +1,57 @@
+== CSS Design-Token Report: sample/site.css ==
+15 rules | 37 declarations | 12 variables | 1 !important | 3 warnings
+
+-- Variables (resolved) --
+  --brand: #1a73e8  (line 6, :root)
+  --brand-hover: #1b74e9  (line 7, :root)
+  --text: #202124  (line 8, :root)
+  --muted: #9aa0a6  (line 9, :root)
+  --surface: hsl(0, 0%, 98%)  (line 10, :root)
+  --space-2: 0.5rem  (line 11, :root)
+  --font-body: "Inter", system-ui, sans-serif  (line 12, :root)
+  --accent: var(--accent-alt) -> var(--accent)  (line 13, :root)   [CIRCULAR]
+  --accent-alt: var(--accent) -> var(--accent-alt)  (line 14, :root)   [CIRCULAR]
+  --shadow: 0 2px 6px rgba(0, 0, 0, .25)  (line 15, :root)
+  --surface: #121212  (line 44, :root in @media (prefers-color-scheme: dark))
+  --text: #e8eaed  (line 44, :root in @media (prefers-color-scheme: dark))
+
+-- Colors by real usage --
+  #ffffff          x2  
+  #000000@0.25     x1   via --shadow
+  #0b57d0          x1  
+  #1a73e8          x1   via --brand
+  #1a73e8@0.4      x1  
+  #1b74e9          x1   via --brand-hover
+  #202124          x1   via --text
+  #333333          x1  
+  #9aa0a6          x1   via --muted
+  #dc143c          x1  
+  near-duplicates: #1a73e8~#1b74e9, #ffffff~#fafafa
+
+-- Typography --
+  family Georgia x1
+  family Inter x1
+  sizes: 0.875rem(14.0px), 14px, 1rem(16.0px), 2rem(32.0px)
+
+-- Breakpoints --
+  @media (max-width: 768px)  (2 rules)
+  @media (min-width: 1200px) and (max-width: 1600px)  (1 rules)
+  @media (prefers-color-scheme: dark)  (1 rules)
+
+-- Dead / overridden declarations --
+  .btn {background-color} winner=var(--brand-hover) (line 29); dead: var(--brand) (line 28)
+
+-- Contrast (color vs background in same rule) --
+  body: #202124 on #fafafa = 15.42:1 OK
+  .btn: #ffffff on #1a73e8 = 4.51:1 OK
+  .btn.muted: #9aa0a6 on #ffffff = 2.64:1 FAILS AA
+
+-- Most specific selectors --
+  nav#main .item.active > a:not(.disabled)  (1, 3, 2)  (line 32)
+  .btn:hover  (0, 2, 0)  (line 30)
+  .btn.muted  (0, 2, 0)  (line 31)
+
+-- Warnings --
+  line 13: --accent: circular reference: --accent -> --accent-alt -> --accent
+  line 14: --accent-alt: circular reference: --accent-alt -> --accent -> --accent-alt
+  line 34: color: undefined variable --undefined-token

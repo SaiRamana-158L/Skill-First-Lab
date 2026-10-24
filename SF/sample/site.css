@@ -1,0 +1,46 @@
+/* Sample stylesheet: brand tokens, overrides, a11y issue, tricky syntax */
+@charset "utf-8";
+@import url("reset.css");
+
+:root {
+  --brand: #1a73e8;
+  --brand-hover: #1b74e9;          /* near-duplicate of --brand (palette drift) */
+  --text: #202124;
+  --muted: #9aa0a6;
+  --surface: hsl(0, 0%, 98%);
+  --space-2: 0.5rem;
+  --font-body: "Inter", system-ui, sans-serif;
+  --accent: var(--accent-alt);     /* circular on purpose */
+  --accent-alt: var(--accent);
+  --shadow: 0 2px 6px rgba(0, 0, 0, .25);
+}
+
+/* tricky: braces, semicolons and a comment marker inside strings / url() */
+body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--surface);
+}
+.quote::before { content: "} not a rule end; /* not a comment */"; }
+.logo { background: url(data:image/svg+xml;base64,PHN2Zz48L3N2Zz4=) no-repeat; fill: url(#abc); }
+
+.btn { color: white; background-color: var(--brand); padding: var(--space-2) 1rem; font-size: 14px; }
+.btn { background-color: var(--brand-hover); }          /* overrides line above */
+.btn:hover { background-color: #0b57d0; }
+.btn.muted { color: var(--muted); background-color: white !important; }   /* low contrast */
+nav#main .item.active > a:not(.disabled) { color: crimson; border: 1px solid rgba(26, 115, 232, 0.4); }
+h1 { font-family: Georgia, serif; font-size: 2rem; color: var(--missing, #333); }
+.card { box-shadow: var(--shadow); color: var(--undefined-token); }
+
+@media (max-width: 768px) {
+  body { font-size: 0.875rem; }
+  .btn { padding: 0.25rem 0.5rem; }
+}
+@media (min-width: 1200px) and (max-width: 1600px) {
+  .card { max-width: 1100px; }
+}
+@media (prefers-color-scheme: dark) {
+  :root { --surface: #121212; --text: #e8eaed; }
+}
+@keyframes pulse { from { opacity: 1 } to { opacity: .4 } }

@@ -1,0 +1,69 @@
+
+Q: What is --brand?
+A: `--brand` = `#1a73e8` (line 6, scope :root).
+   evidence: get_variable(name='--brand') -> found lines [6]
+   fingerprint: 71c82da94576
+   repeat x3 from scratch: IDENTICAL ['71c82da94576', '71c82da94576', '71c82da94576']
+
+Q: What does --brand-hover resolve to and is it the same as --brand?
+A: `--brand-hover` = `#1b74e9` (line 7, scope :root).
+`--brand` = `#1a73e8` (line 6, scope :root).
+   evidence: get_variable(name='--brand-hover') -> found lines [7]
+   evidence: get_variable(name='--brand') -> found lines [6]
+   fingerprint: 86bebc9bb3fc
+   repeat x3 from scratch: IDENTICAL ['86bebc9bb3fc', '86bebc9bb3fc', '86bebc9bb3fc']
+
+Q: Which colors are used the most?
+A: 11 distinct colors are used. Top by usage: #ffffff (x2), #000000@0.25 (x1, via --shadow), #0b57d0 (x1), #1a73e8 (x1, via --brand), #1a73e8@0.4 (x1). Near-duplicate pairs (possible palette drift): #1a73e8/#1b74e9, #ffffff/#fafafa.
+   evidence: list_colors() -> found lines [22, 23, 28, 29, 30, 31, 32, 33, 34]
+   fingerprint: 5a7fe5071607
+   repeat x3 from scratch: IDENTICAL ['5a7fe5071607', '5a7fe5071607', '5a7fe5071607']
+
+Q: What is the contrast between --muted and white?
+A: #9aa0a6 on #ffffff has a contrast ratio of 2.64:1 - fails WCAG AA for normal text (min 4.5) and fails for large text (min 3.0).
+   evidence: contrast_check(foreground='--muted', background='white') -> found
+   fingerprint: c7537d8fd739
+   repeat x3 from scratch: IDENTICAL ['c7537d8fd739', 'c7537d8fd739', 'c7537d8fd739']
+
+Q: Is there any contrast problem in this stylesheet?
+A: Contrast per rule: body #202124 on #fafafa = 15.42:1 (passes AA, min 4.5); .btn #ffffff on #1a73e8 = 4.51:1 (passes AA, min 4.5); .btn.muted #9aa0a6 on #ffffff = 2.64:1 (FAILS AA, min 4.5).
+   evidence: contrast_check() -> found lines [22, 28, 31]
+   fingerprint: 57f36a4d05bf
+   repeat x3 from scratch: IDENTICAL ['57f36a4d05bf', '57f36a4d05bf', '57f36a4d05bf']
+
+Q: Which breakpoints does the site use?
+A: Media queries: @media (max-width: 768px) (2 rules); @media (min-width: 1200px) and (max-width: 1600px) (1 rules); @media (prefers-color-scheme: dark) (1 rules).
+   evidence: list_breakpoints() -> found
+   fingerprint: 7ee518d86731
+   repeat x3 from scratch: IDENTICAL ['7ee518d86731', '7ee518d86731', '7ee518d86731']
+
+Q: Are any declarations overridden?
+A: .btn sets background-color more than once; `var(--brand-hover)` (line 29) wins, dead: `var(--brand)` (line 28).
+   evidence: find_overrides() -> found lines [28, 29]
+   fingerprint: 284fc28da7b2
+   repeat x3 from scratch: IDENTICAL ['284fc28da7b2', '284fc28da7b2', '284fc28da7b2']
+
+Q: What does the .btn.muted rule set?
+A: .btn.muted (line 31, specificity (0, 2, 0)) sets color: #9aa0a6; background-color: white !important.
+   evidence: get_rule(selector='.btn.muted') -> found lines [31]
+   fingerprint: 9b395bd72d0a
+   repeat x3 from scratch: IDENTICAL ['9b395bd72d0a', '9b395bd72d0a', '9b395bd72d0a']
+
+Q: What is --brand-dark?
+A: I don't have that data: --brand-dark is not defined in sample/site.css. Defined variables: --accent, --accent-alt, --brand, --brand-hover, --font-body, --muted, --shadow, --space-2, --surface, --text
+   [abstained - no supporting data]
+   evidence: get_variable(name='--brand-dark') -> not_found
+   fingerprint: fdf40fef116a
+   repeat x3 from scratch: IDENTICAL ['fdf40fef116a', 'fdf40fef116a', 'fdf40fef116a']
+
+Q: What is the capital of France?
+A: I don't have data to answer that, so I won't guess. I can only answer questions about the CSS file I was given: its variables (--x), colors, fonts, breakpoints, overridden declarations, contrast, individual rules (e.g. .btn) and overall stats.
+   [abstained - no supporting data]
+   fingerprint: f2964c7d76b8
+   repeat x3 from scratch: IDENTICAL ['f2964c7d76b8', 'f2964c7d76b8', 'f2964c7d76b8']
+
+Q: What does --accent resolve to?
+A: `--accent` = `var(--accent-alt)` (line 13, scope :root) - it is a CIRCULAR reference and cannot be resolved.
+   evidence: get_variable(name='--accent') -> found lines [13]
+   fingerprint: 000fe5841b50
+   repeat x3 from scratch: IDENTICAL ['000fe5841b50', '000fe5841b50', '000fe5841b50']
